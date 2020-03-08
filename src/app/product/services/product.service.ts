@@ -1,11 +1,15 @@
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Product, IProduct } from '../models/product';
+import { isNgTemplate } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+ export class ProductService {
+//   updateProduct(product: Product) {
+//     throw new Error("Method not implemented.");
+//   }
 
 
   private products:Array<Product>=[
@@ -46,6 +50,11 @@ export class ProductService {
     const deletedItem =this.products.splice(index,1);
 
     return deletedItem;
+  }
+
+  updateProduct(product:IProduct):void{
+    const index = this.products.findIndex(item =>item.id ===product.id);
+    this.products[index]=product;
   }
 
 }

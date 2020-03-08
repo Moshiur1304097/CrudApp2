@@ -94,19 +94,26 @@ export class AddComponent implements OnInit {
   }
 
   private saveProduct(){
+    
     const product = new Product();
 
     product.id = this.productForm.get('id').value;
     product.name = this.productForm.get('name').value;
     product.code = this.productForm.get('code').value;
 
-    product.category =this.getLookupObjFromCode(this.productForm.get('category').value);
     product.unit = this.getLookupObjFromCode(this.productForm.get('unit').value);
+    product.category =this.getLookupObjFromCode(this.productForm.get('category').value);
+  
 
     product.purchaseRate = this.productForm.get('purchaseRate').value;
     product.salesRate = this.productForm.get('salesRate').value;
+
+    //save to database
+    if(product.id==0){
+      this._productService.addNewProduct(product);
+    }
   
-    this._productService.addNewProduct(product);
+    this._productService.updateProduct(product);
 
   }
 
