@@ -1,3 +1,4 @@
+import { switchMap } from 'rxjs/operators';
 import { ProductService } from './../services/product.service';
 import { LookupService } from './../services/lookup.service';
 import { Observable } from 'rxjs';
@@ -5,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Lookup } from '../models/lookup';
 import { Product } from '../models/product';
-import { Router } from '@angular/router';
+import { Router, ParamMap, ActivatedRoute } from '@angular/router';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-add',
@@ -25,6 +27,7 @@ export class AddComponent implements OnInit {
     private _lookupService: LookupService,
     private _productService: ProductService,
     private _router: Router,
+    private _route:ActivatedRoute,
     ) { }
 
   ngOnInit() {
@@ -38,6 +41,27 @@ export class AddComponent implements OnInit {
     
     this.units = this._lookupService.getUnits();
     this.categories = this._lookupService.getProductCategories();
+
+    const product$ = this._route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+      this._productService.getProductById(Number.parseInt(params.get('id')))
+      ));
+
+
+      product$.subscribe(product =>{
+
+        if(!isNullOrUndefined(product)){
+          console.log(product);
+          this,this.productForm.get('id').setValue(product.id);
+          this,this.productForm.get('name').setValue(product.name);
+          this,this.productForm.get('code').setValue(product.code);
+          this,this.productForm.get('category').setValue(product.category);
+          this,this.productForm.get('unit').setValue(product.unit);
+          this,this.productForm.get('salesRate').setValue(product.salesRate);
+          this,this.productForm.get('purchaseRate').setValue(product.purchaseRate);
+
+        }
+      });
 
   }
   save($event):void{

@@ -21,12 +21,14 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.products= this._productService.getAllProducts();
   }
+
+
   deleteProduct(product):void{
     const result = this._productService.deleteProduct(product);
     console.log(result);
   }
 
-  viewProduct(product:IProduct):void{
+  viewProduct(product):void{
     this._router.navigate(['products/view/'+product.id]);
   }
 

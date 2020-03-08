@@ -15,8 +15,12 @@ const routes: Routes = [
     component: AddComponent
   },
   {
-    path:'view/id',
+    path:'view/:id',
     component: ViewComponent
+  },
+  {
+    path:'edit/:id',
+    component: AddComponent
   }
 ];
 
