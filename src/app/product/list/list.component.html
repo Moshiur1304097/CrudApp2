@@ -4,14 +4,17 @@
         <h4>Products</h4>
     </div>
 </div>
+
+
 <div class="row">
-    <div class="col-sm">
-        <a href="#" routerLink="add">Add New Product</a>
+    <div class="col-sm list-action-button">
+      <a href="#" class="btn btn-link float-right links-primary fa fa-filter fa-lg action-label">Filter</a>
+      <a href="#" routerLink="add" class="btn btn-link float-right fa fa-file fa-lg action-label">Add New Product</a>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-sm">
+    <div class="col-sm-12">
         <table class="table table-striped">
             <thead>
               <tr>
@@ -25,6 +28,7 @@
                 <th scope="col"> Action</th>
               </tr>
             </thead>
+            
             <tbody>
               <tr *ngFor="let product of products | async; index as i">
                 <td>{{ i+1 }}</td>

@@ -22,6 +22,7 @@ export class ViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.product$ = this._route.paramMap.pipe(
       switchMap((params: ParamMap) =>
           this._productService.getProductById(Number.parseInt(params.get('id')))

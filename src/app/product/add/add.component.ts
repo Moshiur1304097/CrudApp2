@@ -1,8 +1,8 @@
 import { switchMap } from 'rxjs/operators';
 import { ProductService } from './../services/product.service';
 import { LookupService } from './../services/lookup.service';
-import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Lookup } from '../models/lookup';
 import { Product } from '../models/product';
@@ -21,6 +21,7 @@ export class AddComponent implements OnInit {
   categories:Observable<Lookup[]>;
 
   formSubmitted = false;
+  private _observableSubscription: Array<Subscription>= [];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -55,8 +56,8 @@ export class AddComponent implements OnInit {
           this,this.productForm.get('id').setValue(product.id);
           this,this.productForm.get('name').setValue(product.name);
           this,this.productForm.get('code').setValue(product.code);
-          this,this.productForm.get('category').setValue(product.category);
-          this,this.productForm.get('unit').setValue(product.unit);
+          this,this.productForm.get('category').setValue(product.category.code);
+          this,this.productForm.get('unit').setValue(product.unit.code);
           this,this.productForm.get('salesRate').setValue(product.salesRate);
           this,this.productForm.get('purchaseRate').setValue(product.purchaseRate);
 
@@ -64,7 +65,15 @@ export class AddComponent implements OnInit {
       });
 
   }
-  save($event):void{
+
+  ngOnDestroy(){
+    this._observableSubscription.forEach(item => {
+      item.unsubscribe();
+      console.log(item, 'unsubscribed');
+    });
+  }
+
+  save($event:any):void{
 
     this.formSubmitted =true;
 
@@ -93,10 +102,11 @@ export class AddComponent implements OnInit {
     
   }
 
-  private saveProduct(){
+  private saveProduct():void{
     
     const product = new Product();
 
+       // map data from form to product
     product.id = this.productForm.get('id').value;
     product.name = this.productForm.get('name').value;
     product.code = this.productForm.get('code').value;

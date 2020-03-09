@@ -12,7 +12,7 @@ import { isNgTemplate } from '@angular/compiler';
 //   }
 
 
-  private products:Array<Product>=[
+  private products:Array<Product> = [
    
     {  id:1, name: 'Eastern Mango pickle 500g', code: 'mp500', category: { name: 'mango', code: '1', category: 1 }, unit: { name: 'PCS', code: '1', category: 0 }, purchaseRate: 100, salesRate: 110 },
     {  id:2, name: 'swad Mango pickle 500g', code: 'mp500', category: { name: 'mango', code: '1', category: 1 }, unit: { name: 'PCS', code: '1', category: 0 }, purchaseRate: 100, salesRate: 110 },
@@ -40,7 +40,7 @@ import { isNgTemplate } from '@angular/compiler';
   }
 
   addNewProduct(product: IProduct): void{
-    this.products.sort(item =>item.id)
+    this.products.sort(item => item.id)
     console.log(this.products);
     this.products.push(product);
   }
@@ -52,9 +52,9 @@ import { isNgTemplate } from '@angular/compiler';
     return deletedItem;
   }
 
-  updateProduct(product:IProduct):void{
-    const index = this.products.findIndex(item =>item.id ===product.id);
-    this.products[index]=product;
+  updateProduct(product: IProduct):void{
+    const index = this.products.findIndex(item => item.id === product.id);
+    this.products[index] = product;
   }
 
 }

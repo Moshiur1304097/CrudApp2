@@ -13,7 +13,7 @@ export class ListComponent implements OnInit {
 
   products: Observable<IProduct[]> = null;
 
-  constructor(
+  constructor(  
     private _router:Router,
     private _productService:ProductService
   ) { }
@@ -28,7 +28,7 @@ export class ListComponent implements OnInit {
     console.log(result);
   }
 
-  viewProduct(product):void{
+  viewProduct(product: IProduct):void{
     this._router.navigate(['products/view/'+product.id]);
   }
 

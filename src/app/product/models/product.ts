@@ -19,12 +19,12 @@ export class Product implements IProduct {
     salesRate: number;
     purchaseRate: number;
 
-    constructor(name?:string,
-        code?: string,
-        category?: Lookup,
-        unit?: Lookup,
-        salesRate?: number,
-        purchaseRate?: number)
+    constructor(name ?:string,
+        code ?: string,
+        category ?: Lookup,
+        unit ?: Lookup,
+        salesRate ?: number,
+        purchaseRate ?: number)
         {
             this.name=name;
             this.code=code;
